@@ -144,7 +144,7 @@ hr.half-length {
     display: flex;
 }
 
-.toggle-start-button {
+.toggle-start-button,.toggle-minimal-button{
     background-color: var(--sec-color);
     color: var(
     --back-color);
