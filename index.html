@@ -5,14 +5,13 @@
         <link rel="stylesheet" href="style.css">
         <link rel=canonical href="">
         <meta charset="UTF-8">
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta name="description" content="pomodoro technique for textbooks">
     </head>
     <body onload="start()">
         <div class="pomodoro-container">
             <div class="minimal-mode">
-                <div class="current-Page">0
-            </div>
+                <div class="current-Page">0</div>
                 <div class="">
                     <div class="pomodoro-timer">
                         <div class="timer-div minutes-div" style='font-size:10em !important;'>00</div>
@@ -20,6 +19,7 @@
                         <div class="timer-div seconds-div" style='font-size:10em !important;'>34</div>
                     </div>
                 </div>
+                <button type="button" class="toggle-minimal-button">min</button>
             </div>
             <div class="pomodoro-app">
                 <div class="pomodoro-nav">
@@ -51,6 +51,7 @@
                         settings
             
                 
+                    
                     </div>
                     <div class="property-div settings-pomodoro-time-property-div">
                         <label class="property" for="settings-pomodoro-time-value">pomodoro time:</label>
@@ -110,7 +111,7 @@
                             time left: <div>00:00</div>
                         </div>
                         <div class="toggle-start-div">
-                            <button type="button" class="toggle-start-button" onclick="toggleTextbook()">Start</button>
+                            <button type="button" class="toggle-minimal-button"">min</button>
                         </div>
                     </div>
                 </div>

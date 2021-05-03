@@ -3,9 +3,10 @@ function start() {
   window.app = document.querySelector(".pomodoro-app");
   window.appSettings = document.querySelector(".pomodoro-settings")
   window.minimalMode = false;
-  document.querySelectorAll('.pomodoro-timer').forEach((item) => {
+  document.querySelectorAll('.toggle-minimal-button').forEach((item) => {
     item.addEventListener('click',toggleMinimalMode);
   });
+  
   window.appMinimalMode = document.querySelector(".minimal-mode");
   window.currentPage = document.querySelector(".current-Page");
   document.querySelectorAll("input").forEach((item)=>{
