@@ -1,0 +1,16 @@
+$main-color: black;
+
+body{
+        background-color:$main-color;
+}
+
+@for $i from 1 through 3 {
+    horizontal-bar:nth-child(#{$i}){
+        top: 0px;
+    }
+}
+@for $i from 1 through 3 {
+    vertical-bar:nth-child(#{$i}){
+        left: 0px;
+    }
+}

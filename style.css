@@ -1,65 +1,94 @@
 * {
     padding: 0;
     margin: 0;
-    color: #FFF;
+    color: var(--sec-color);
+    box-sizing: border-box;
+    transition: all .5s ease;
 }
 
 :root {
-    --light-red: rgb(219, 82, 77);
+    --light-red: white !important;
+    --light-red: black;
     --light-green: rgb(70, 142, 145);
     --light-blue: rgb(67, 126, 168);
     --app-width: 600px;
     --app-height: 600px;
-    --back-color: var(--light-red);
-    --trans-white: #FFFFFF36;
+    --back-color: var(--light-red) !important;
+    --sec-color: black;
+    --trans-white: #00000036;
 }
+.sec-2{
+
+}
+.sec-3{
+    
+}
+
 
 body {
     background-color: var(--back-color);
-    margin-top: 167px;
+    margin-top: 0;
     transition: background-color 1.0s ease-in-out;
 }
 
 .pomodoro-container {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: center;
     margin-top: 0;
-    height: 497px;
     flex-direction: row;
     flex-wrap: wrap;
-    align-content: space-around;
+    width: 100%;
+    align-content: center;
 }
 
 .textbook-mode {
-    min-width: 300px;
     display: none;
-    background-color: #FFFFFF36;
+    background-color: var(--trans-white);
     border-radius: 25px;
-    padding: 20px;
+    padding: 1em;
     font-size: 25px;
     font-weight: bold;
+    width: 100%;
 }
 
-.textbook-mode>div>div>input[type='number'], .estimated-time>div {
+.textbook-mode>div>div>input[type='number'], .estimated-time>div ,.elapsed-time>div{
     background-color: #FFFFFF00;
-    border: #FFFFFF36 solid 2px;
+    border: var(--trans-white) solid 2px;
     font-size: 25px;
     font-weight: bold;
     border-radius: 6px;
-    width: 55px;
-    float: right;
+    width: 70px;
+    text-align:center;
 }
 
 .textbook-mode>.values {
-    display: grid;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-end;
+    justify-content: center;
+    align-items: center;
+}
+.textbook-mode>.values >*{
+    width: 250px;
+    display: flex;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.textbook-mode>.values *{
+    text-align: center;
 }
 
 .pomodoro-app {
-    width: var(--app-width);
     display: grid;
-    background-color: #FFFFFF36;
+    background-color: var(--trans-white);
     border-radius: 25px;
+    margin: 2em;
+    width: 100vw;
 }
 
 .pomodoro-nav {
@@ -70,7 +99,7 @@ body {
 
 .nav-button {
     background-color: #FFFFFF00;
-    border: #FFFFFF36 solid 3px;
+    border: var(--trans-white) solid 3px;
     font-size: 25px;
     font-weight: bold;
     border-radius: 13px;
@@ -80,7 +109,8 @@ body {
 }
 
 .selected {
-    background-color: #00000014;
+    color: var(--back-color);
+    background-color: var(--sec-color);
 }
 
 hr.full-length {
@@ -111,27 +141,37 @@ hr.half-length {
 
 .toggle-start-div {
     margin: 20px auto;
+    display: flex;
 }
 
 .toggle-start-button {
-    background-color: white;
-    color: var(--back-color);
+    background-color: var(--sec-color);
+    color: var(
+    --back-color);
     border: none;
     width: 130px;
     font-size: 30px;
     padding: 10px 6px;
     font-weight: bold;
     border-radius: 10px;
+    margin: 0 auto;
 }
 
 .pomodoro-settings {
-    width: min-content;
     display: grid;
-    background-color: #FFFFFF36;
-    padding: 38px;
+    width: 100%;
+    background-color: var(--trans-white);
     grid-template-columns: min-content min-content;
     grid-gap: 25px 10px;
     border-radius: 25px;
+    text-align: center;
+    padding: 1em;
+}
+
+.pomodoro-settings > * {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .minimal-mode {
@@ -158,7 +198,7 @@ hr.half-length {
 }
 
 #settings-icon {
-    fill: white;
+    fill: var(--back-color);
     vertical-align: middle;
 }
 
@@ -178,12 +218,12 @@ hr.half-length {
 .value-div {
     grid-column: 2;
     margin-left: auto;
-    color: black;
+    color: var(--sec-color);
 }
 
 .value {
     background-color: #FFFFFF00;
-    border: #FFFFFF36 solid 2px;
+    border: var(--trans-white) solid 2px;
     font-size: 25px;
     font-weight: bold;
     border-radius: 6px;
@@ -251,4 +291,47 @@ input:checked+.slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+    .sec-3 {
+        width: 90vw !important;
+        display:flex;
+        justify-content:space-around;
+    }
+
+    .sec-4 {
+        width: 90vw !important;
+        margin-top: 2em;
+    }
+
+    :root {
+        --back-color: black !important;
+        --sec-color: white;
+        --trans-white: #FFFFFF60;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    --back-color: black !important;
+    --sec-color: white;
+    --trans-white: #FFFFFF60;
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    ...
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    ...
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    ...
 }

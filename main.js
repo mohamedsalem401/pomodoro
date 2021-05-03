@@ -5,6 +5,9 @@ function start() {
   window.minimalMode = false
   window.appMinimalMode = document.querySelector(".minimal-mode");
   window.currentPage = document.querySelector(".current-Page");
+  document.querySelectorAll("input").forEach((item)=>{
+    item.addEventListener('change',getSettings);
+  })
   document.addEventListener('keyup', function(e) {
     if (e.keyCode == 32) {
       toggleMinimalMode();
@@ -42,7 +45,10 @@ function start() {
     'mode': 'pomodoro',
     'finishedPomodoros': 0,
     'system': 'default',
-    'elapsedSeconds': '0'
+    'elapsedTime': '00:00',
+    'leftTime':'20:00',
+    'firstPage':1,
+    'lastPage':5
   };
   defineInputs();
   highlightMode();
@@ -66,6 +72,19 @@ function addTimes(a, b) {
   let bSecs = Number.parseInt(timeGetSecs(b));
   let cSecs = aSecs + bSecs;
   let cMins = aMins + bMins + (cSecs - (cSecs % 60)) / 60;
+  return twoDigit(cMins) + ':' + twoDigit(cSecs % 60);
+}
+function subtractTimes(a, b) {
+  let aMins = Number.parseInt(timeGetMins(a));
+  let bMins = Number.parseInt(timeGetMins(b));
+  let aSecs = Number.parseInt(timeGetSecs(a));
+  let bSecs = Number.parseInt(timeGetSecs(b));
+  let cSecs = aSecs - bSecs;
+  let cMins = aMins + bMins ;
+  if(cSecs < 0){
+    cSecs += 60 ;
+    cMins -= 1;
+  }
   return twoDigit(cMins) + ':' + twoDigit(cSecs % 60);
 }
 
@@ -104,7 +123,7 @@ function enableTextbook() {
   firstPageInput.value = 1;
   lastPageInput.value = 5;
   currentPageInput.value = firstPageInput.value;
-  window.estimatedTimeDiv.innerText = estimateTimeLeft();
+  window.estimatedTimeDiv.innerText = estimateTimeLeft('00:00');
   currentVariables['system'] = 'textbook';
   window.pomodoroInput.value = 5;
   window.breakInput.value = 0;
@@ -127,8 +146,22 @@ function toggleTextbook() {
   }
 }
 
-function estimateTimeLeft() {
-  return (lastPageInput.value - firstPageInput.value + 1) * (Number.parseInt(timeGetMins(settings['pomodoro']))) + ':00'
+function estimateTimeLeft(timeDiff) {
+  let value = (lastPageInput.value - firstPageInput.value) * (Number.parseInt(timeGetMins(settings['pomodoro'])))
+  value = subtractTimes(value+':00',timeDiff);
+  if(parseInt(timeGetMins(value)) > 0){
+    return  value;}
+  return '00:00';
+}
+
+function setTextbookTimes(){
+  let leftTimeDiv = document.querySelector("div.estimated-time>div");
+  let elapsed = addTimes(window.currentVariables['elapsedTime'] , '00:01');
+  let left = subtractTimes(leftTimeDiv.innerText,'00:01');
+  window.currentVariables['elapsedTime'] = elapsed;
+  window.currentVariables['timeLeft'] = left;
+  leftTimeDiv.innerText = left;
+  document.querySelector("div.elapsed-time > div").innerText = elapsed;
 }
 
 function addPage() {
@@ -256,6 +289,7 @@ function secondTick() {
     reduceTimeByASec();
   }
   update();
+  setTextbookTimes();
 }
 
 function reduceTimeByASec() {
@@ -276,11 +310,13 @@ function setSettingsDefault() {
 }
 
 function getSettings() {
+  let timeDiff = currentVariables['elapsedTime']
   settings['pomodoro'] = twoDigit(pomodoroInput.value) + ':' + twoDigit(0);
   settings['break'] = twoDigit(breakInput.value) + ':' + twoDigit(0);
   settings['longBreak'] = twoDigit(longBreakInput.value) + ':' + twoDigit(0);
   settings['autoStart'] = autoStartInput.checked;
   setTime(settings[currentVariables['mode']]);
+  estimatedTimeDiv.innerText = estimateTimeLeft(timeDiff);
 }
 
 function listenToSettingsChange() {
