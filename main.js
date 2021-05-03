@@ -2,7 +2,10 @@ function start() {
   window.textbook = document.querySelector(".textbook-mode");
   window.app = document.querySelector(".pomodoro-app");
   window.appSettings = document.querySelector(".pomodoro-settings")
-  window.minimalMode = false
+  window.minimalMode = false;
+  document.querySelectorAll('.pomodoro-timer').forEach((item) => {
+    item.addEventListener('click',toggleMinimalMode);
+  });
   window.appMinimalMode = document.querySelector(".minimal-mode");
   window.currentPage = document.querySelector(".current-Page");
   document.querySelectorAll("input").forEach((item)=>{
@@ -147,7 +150,7 @@ function toggleTextbook() {
 }
 
 function estimateTimeLeft(timeDiff) {
-  let value = (lastPageInput.value - firstPageInput.value) * (Number.parseInt(timeGetMins(settings['pomodoro'])))
+  let value = (lastPageInput.value - currentPageInput.value) * (Number.parseInt(timeGetMins(settings['pomodoro'])))
   value = subtractTimes(value+':00',timeDiff);
   if(parseInt(timeGetMins(value)) > 0){
     return  value;}
@@ -317,6 +320,11 @@ function getSettings() {
   settings['autoStart'] = autoStartInput.checked;
   setTime(settings[currentVariables['mode']]);
   estimatedTimeDiv.innerText = estimateTimeLeft(timeDiff);
+  if(currentPageInput.value < firstPageInput.value){
+    currentPageInput.value = firstPageInput.value;
+  }
+  
+  currentPage.innerText = currentPageInput.value;
 }
 
 function listenToSettingsChange() {
